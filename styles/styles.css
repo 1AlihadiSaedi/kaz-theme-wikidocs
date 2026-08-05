@@ -72,6 +72,7 @@ body{font-family:var(--font-sans);font-size:var(--font-size-base);line-height:1.
 .btn-icon{width:36px;height:36px;padding:0;border-radius:var(--radius-full);background:transparent;color:var(--text-secondary);border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all var(--transition-fast)}
 .btn-icon:hover{background:var(--surface-hover);color:var(--text-primary)}
 .btn-sm{padding:4px 10px;font-size:var(--font-size-xs);height:30px}
+#topbar-actions .btn .btn-label{display:none}#topbar-actions .btn-sm{padding:4px 8px;min-width:30px;height:30px}#topbar-actions .btn-sm .svg-icon-sm{margin:0}
 .content-container{max-width:820px;width:100%;margin:0 auto;padding:var(--spacing-2xl) var(--spacing-xl)}
 h1,h2,h3,h4,h5,h6{color:var(--text-primary);font-weight:700;line-height:1.3;scroll-margin-top:80px}
 h1{font-size:2rem;margin:var(--spacing-2xl) 0 var(--spacing-md)}
@@ -140,7 +141,7 @@ article{word-wrap:break-word}
 .image-grid-item .delete-link{color:#EF4444;cursor:pointer;font-size:var(--font-size-xs)}
 
 @media(max-width:1024px){.sidebar{transform:translateX(calc(var(--sidebar-width)*-1));box-shadow:var(--shadow-lg)}.sidebar.mobile-open{transform:translateX(0)}.sidebar-overlay.active{display:block;pointer-events:auto}.main-content{margin-left:0!important}.content-container{padding:var(--spacing-lg) var(--spacing-md)}}
-@media(max-width:640px){.topbar{position:relative;padding:0 var(--spacing-sm);gap:4px}.topbar-right{gap:2px;overflow:visible}#topbar-actions .btn .btn-label{display:none}#topbar-actions .btn-sm{padding:4px 6px;min-width:30px;height:30px}#topbar-actions .btn-sm .svg-icon-sm{margin:0}.content-container{padding:var(--spacing-md)}h1{font-size:1.5rem}h2{font-size:1.25rem}.content-footer{flex-direction:column;align-items:flex-start}.toast-container{left:16px;right:16px;bottom:16px}.toast{max-width:100%}}
+@media(max-width:640px){.topbar{position:relative;padding:0 var(--spacing-sm);gap:4px}.topbar-right{gap:2px;overflow:visible}.content-container{padding:var(--spacing-md)}h1{font-size:1.5rem}h2{font-size:1.25rem}.content-footer{flex-direction:column;align-items:flex-start}.toast-container{left:16px;right:16px;bottom:16px}.toast{max-width:100%}}
 
 .settings-page{max-width:720px;margin:0 auto;padding:var(--spacing-2xl)}
 .settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--spacing-md)}
