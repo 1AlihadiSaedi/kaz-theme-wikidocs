@@ -36,7 +36,7 @@ $al = Localization::available();
 <?php if(file_exists($APP->DIR.'styles/styles-custom.css')): ?><link rel="stylesheet" href="<?= $APP->PATH ?>styles/styles-custom.css"><?php endif; ?>
 <link rel="icon" type="image/x-icon" href="<?= $APP->PATH ?>favicon.ico" sizes="any">
 <title><?= ($DOC->ID!='homepage'?$DOC->TITLE.' - ':'').$APP->TITLE ?></title>
-<?php if(strlen(GTAG ?? '') && Session::getInstance()->privacyAgreeded()): ?>
+<?php if(strlen(GTAG??'') && Session::getInstance()->privacyAgreeded()): ?>
 <script async src="https://www.googletagmanager.com/gtag/js?id=<?= GTAG ?>"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','<?= GTAG ?>');</script>
 <?php endif; ?>
@@ -108,21 +108,21 @@ $al = Localization::available();
 
   <div class="topbar-right" id="topbar-actions">
     <div class="lang-switcher" id="lang-switcher">
-      <button class="lang-switcher-btn" id="lang-switcher-btn" aria-label="Language"><?= strtoupper(substr($cl,0,2)) ?></button>
+      <button class="lang-switcher-btn" id="lang-switcher-btn" aria-label="Language" data-tooltip="Language"><?= strtoupper(substr($cl,0,2)) ?></button>
       <div class="lang-switcher-dropdown" id="lang-dropdown">
         <?php foreach($al as $code => $name): ?>
           <a href="?set_lang=<?= $code ?>" class="<?= $code==$cl?'active':'' ?>"><span class="lang-code"><?= strtoupper(substr($code,0,2)) ?></span><?= $name ?></a>
         <?php endforeach; ?>
       </div>
     </div>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"><svg class="svg-icon icon-sun"><use href="#i-sun"/></svg><svg class="svg-icon icon-moon"><use href="#i-moon"/></svg></button>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" data-tooltip="Toggle theme"><svg class="svg-icon icon-sun"><use href="#i-sun"/></svg><svg class="svg-icon icon-moon"><use href="#i-moon"/></svg></button>
 
     <?php if(MODE=='view'): ?>
       <a class="btn-icon" href="<?= $DOC->URL ?>?print" target="_blank" data-tooltip="<?= $TXT->TooltipPrint ?>"><svg class="svg-icon"><use href="#i-print"/></svg></a>
       <?php if(Session::getInstance()->autenticationLevel()==2): ?>
         <a class="btn-icon" href="<?= $APP->PATH ?>settings.php" data-tooltip="<?= $TXT->TooltipSettings ?>"><svg class="svg-icon"><use href="#i-settings"/></svg></a>
         <button class="btn-icon" data-tooltip="<?= $TXT->TooltipNewDocument ?>" onclick="newDocument()"><svg class="svg-icon"><use href="#i-new-doc"/></svg></button>
-        <a class="btn btn-primary btn-sm" href="<?= $DOC->URL ?>?edit"><svg class="svg-icon svg-icon-sm"><use href="#i-pencil"/></svg> <span class="btn-label"><?= $TXT->TooltipEditDocument ?></span></a>
+        <a class="btn btn-primary btn-sm" href="<?= $DOC->URL ?>?edit" data-tooltip="<?= $TXT->TooltipEditDocument ?>"><svg class="svg-icon svg-icon-sm"><use href="#i-pencil"/></svg> <span class="btn-label"><?= $TXT->TooltipEditDocument ?></span></a>
         <?php if($DOC->VERSION!=='latest'): ?>
           <form method="post" action="<?= $APP->PATH ?>submit.php?act=content_restore" style="display:inline" onsubmit="return confirm('<?= str_replace(array("'",'"'),"\\'",$TXT->TooltipRestoreVersionConfirm) ?>')">
             <input type="hidden" name="token" value="<?= htmlspecialchars(Session::getInstance()->token(),ENT_QUOTES) ?>">
@@ -132,22 +132,22 @@ $al = Localization::available();
           </form>
         <?php endif; ?>
       <?php else: ?>
-        <a class="btn btn-primary btn-sm" href="<?= $DOC->URL ?>?auth"><svg class="svg-icon svg-icon-sm"><use href="#i-unlock"/></svg> <span class="btn-label"><?= $TXT->TooltipSignIn ?></span></a>
+        <a class="btn btn-primary btn-sm" href="<?= $DOC->URL ?>?auth" data-tooltip="<?= $TXT->TooltipSignIn ?>"><svg class="svg-icon svg-icon-sm"><use href="#i-unlock"/></svg> <span class="btn-label"><?= $TXT->TooltipSignIn ?></span></a>
       <?php endif; ?>
     <?php endif; ?>
 
     <?php if(MODE=='edit'): ?>
-      <button class="btn btn-ghost btn-sm" onclick="window.location.href='<?= $DOC->URL ?>'"><svg class="svg-icon svg-icon-sm"><use href="#i-close"/></svg> <span class="btn-label"><?= $TXT->TooltipCancelEditing ?></span></button>
-      <button class="btn btn-secondary btn-sm modal-trigger" data-modal="modal-images"><svg class="svg-icon svg-icon-sm"><use href="#i-image"/></svg> <span class="btn-label"><?= $TXT->Images ?></span></button>
-      <button class="btn btn-secondary btn-sm modal-trigger" data-modal="modal-attachments"><svg class="svg-icon svg-icon-sm"><use href="#i-attach"/></svg> <span class="btn-label"><?= $TXT->Attachments ?></span></button>
+      <button class="btn btn-ghost btn-sm" onclick="window.location.href='<?= $DOC->URL ?>'" data-tooltip="<?= $TXT->TooltipCancelEditing ?>"><svg class="svg-icon svg-icon-sm"><use href="#i-close"/></svg> <span class="btn-label"><?= $TXT->TooltipCancelEditing ?></span></button>
+      <button class="btn btn-secondary btn-sm modal-trigger" data-modal="modal-images" data-tooltip="<?= $TXT->Images ?>"><svg class="svg-icon svg-icon-sm"><use href="#i-image"/></svg> <span class="btn-label"><?= $TXT->Images ?></span></button>
+      <button class="btn btn-secondary btn-sm modal-trigger" data-modal="modal-attachments" data-tooltip="<?= $TXT->Attachments ?>"><svg class="svg-icon svg-icon-sm"><use href="#i-attach"/></svg> <span class="btn-label"><?= $TXT->Attachments ?></span></button>
       <form method="post" action="<?= $APP->PATH ?>submit.php?act=content_delete" style="display:inline" onsubmit="return confirm('<?= str_replace(array("'",'"'),"\\'",$TXT->TooltipDeleteDocumentConfirm) ?>')">
         <input type="hidden" name="token" value="<?= htmlspecialchars(Session::getInstance()->token(),ENT_QUOTES) ?>">
         <input type="hidden" name="document" value="<?= htmlspecialchars($DOC->ID,ENT_QUOTES) ?>">
-        <button type="submit" class="btn btn-danger btn-sm"><svg class="svg-icon svg-icon-sm"><use href="#i-trash"/></svg> <span class="btn-label"><?= $TXT->TooltipDeleteDocument ?></span></button>
+        <button type="submit" class="btn btn-danger btn-sm" data-tooltip="<?= $TXT->TooltipDeleteDocument ?>"><svg class="svg-icon svg-icon-sm"><use href="#i-trash"/></svg> <span class="btn-label"><?= $TXT->TooltipDeleteDocument ?></span></button>
       </form>
-      <button class="btn btn-secondary btn-sm modal-trigger" data-modal="modal-versions"><svg class="svg-icon svg-icon-sm"><use href="#i-list"/></svg> <span class="btn-label"><?= $TXT->TooltipVersions ?></span></button>
+      <button class="btn btn-secondary btn-sm modal-trigger" data-modal="modal-versions" data-tooltip="<?= $TXT->TooltipVersions ?>"><svg class="svg-icon svg-icon-sm"><use href="#i-list"/></svg> <span class="btn-label"><?= $TXT->TooltipVersions ?></span></button>
       <button id="editor-revision" class="btn btn-warning btn-sm" data-tooltip="<?= $TXT->TooltipVersioning ?>"><svg class="svg-icon svg-icon-sm" id="editor-revision-icon-svg"><use href="#i-check-square"/></svg> <span class="btn-label"><?= $TXT->TooltipVersioning ?></span></button>
-      <button id="editor-save" class="btn btn-success btn-sm"><svg class="svg-icon svg-icon-sm"><use href="#i-save"/></svg> <span class="btn-label"><?= $TXT->TooltipSave ?></span></button>
+      <button id="editor-save" class="btn btn-success btn-sm" data-tooltip="<?= $TXT->TooltipSave ?>"><svg class="svg-icon svg-icon-sm"><use href="#i-save"/></svg> <span class="btn-label"><?= $TXT->TooltipSave ?></span></button>
     <?php endif; ?>
   </div>
 </header>
