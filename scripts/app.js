@@ -1,5 +1,7 @@
 /**
  * WikiDocs — Modern UI App Script
+ * Desktop: sidebar collapses as drawer
+ * Mobile: sidebar opens as overlay
  */
 
 (function () {
@@ -37,14 +39,22 @@
   const overlay = document.getElementById('sidebar-overlay');
   const menuBtn = document.getElementById('mobile-menu-btn');
 
-  if (menuBtn && sidebar && overlay) {
+  function isDesktop() { return window.innerWidth > 1024; }
+
+  if (menuBtn && sidebar) {
     menuBtn.addEventListener('click', function () {
-      if (sidebar.classList.contains('mobile-open')) { closeSidebar(); }
-      else { openSidebar(); }
+      if (isDesktop()) {
+        sidebar.classList.toggle('collapsed');
+      } else {
+        if (sidebar.classList.contains('mobile-open')) { closeSidebar(); }
+        else { openSidebar(); }
+      }
     });
-    overlay.addEventListener('click', closeSidebar);
+    if (overlay) {
+      overlay.addEventListener('click', closeSidebar);
+    }
     window.addEventListener('resize', function () {
-      if (window.innerWidth > 1024) closeSidebar();
+      if (isDesktop()) closeSidebar();
     });
   }
 
@@ -74,6 +84,9 @@
     if (e.key === 'Escape') {
       document.querySelectorAll('.modal-overlay.active').forEach(function (m) { closeModal(m.id); });
       if (sidebar && sidebar.classList.contains('mobile-open')) closeSidebar();
+      if (sidebar && isDesktop() && sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+      }
       if (langDropdown) langDropdown.classList.remove('active');
     }
   });
